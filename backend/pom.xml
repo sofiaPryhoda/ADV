@@ -28,7 +28,6 @@
         <junit.version>4.10</junit.version>
     </properties>
 
-
     <build>
         <finalName>untitled5</finalName>
         <pluginManagement>
