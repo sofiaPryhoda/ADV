@@ -7,4 +7,11 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  showMe:boolean = false;
+  enabledBtn:boolean = false;
+
+  show(){
+    this.showMe!=this.showMe;
+  }
 }

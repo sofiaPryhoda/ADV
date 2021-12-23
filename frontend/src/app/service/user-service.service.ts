@@ -12,15 +12,33 @@ export class UserService {
   private readonly usersURL: string;
 
   constructor(private http: HttpClient) {
-    this.usersURL = environment.mainURL +'/users';
+    this.usersURL = environment.mainURL + '/users';
   }
 
-  public getAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersURL);
+  // public getAll(): Observable<User[]> {
+  //     return this.http.get<User[]>(this.usersURL);
+  // }
+
+  public getAll(): Observable<any> {
+    if (this.isEmptyList()) {
+      console.log("No users found")
+      return this.http.get<User[]>(this.usersURL);
+    } else {
+      return this.http.get<User[]>(this.usersURL);
+    }
   }
+
+  isEmptyList(): boolean {
+    if (this.http.get<User[]>(this.usersURL) == undefined) {
+      return false;
+    }
+    return true;
+  }
+
   create(user: object): Observable<Object> {
     return this.http.post(this.usersURL, user);
   }
+
   public save(user: User) {
     return this.http.post<User>(this.usersURL, user);
   }

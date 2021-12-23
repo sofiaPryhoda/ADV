@@ -7,10 +7,11 @@ import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {UserListComponent} from "./user-list/user-list.component";
 import {UserCreateComponent} from "./user-create/user-create.component";
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent, UserListComponent, UserCreateComponent
+    AppComponent, UserListComponent, UserCreateComponent, HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -21,5 +22,7 @@ import {UserCreateComponent} from "./user-create/user-create.component";
   providers: [UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+
+}
 

@@ -1,17 +1,33 @@
-<table>
-  <tr>
-    <th>Name</th>
-    <th>SURNAME</th>
-    <th>EMAIL</th>
-    <th>PHONE</th>
-  </tr>
-  <tr *ngFor="let user of users">
-    <td>{{ user.name }}</td>
-    <td>{{ user.surname }}</td>
-    <td>{{ user.email }}</td>
-    <td>{{ user.phone }}</td>
-  </tr>
-</table>
+<section>
+  <button class="btn btn-1">Add </button>
+  <button class="btn btn-1">Delete</button>
+  <button class="btn btn-1">Update</button>
+  <div class="tbl-header">
+    <table class="table" cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 
 
 
