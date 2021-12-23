@@ -21,7 +21,7 @@ public class CategoryController {
         return categoryService.read();
     }
 
-    @GetMapping("/advid")
+    @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(categoryService.getById(id));
     }
@@ -37,7 +37,7 @@ public class CategoryController {
         return ResponseEntity.ok().body("Category was updated successfully");
     }
 
-    @DeleteMapping("/advid")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         categoryService.delete(id);
         return ResponseEntity.ok().body("Category was deleted successfully");
