@@ -2,24 +2,24 @@
 table {
   width: 100%;
   table-layout: fixed;
-
 }
 
 .tbl-header {
   background-color: rgba(255, 255, 255, 0.3);
   font-family: Helvetica, cursive;
   text-align-all: center;
-  margin-top: 5px;
-  width: 1440px;
+  margin-top: 1px;
+  width: 1433px;
 }
 
 .table th {
   font-weight: bold;
   padding: 25px;
-  background: #444140;
+  background: #3d5a80;
   border: 1px solid #a6a2a2;
   border-radius: 10px;
   font-size: 20px;
+  color: #ffffff;
 }
 
 .tbl-content {
@@ -44,20 +44,14 @@ th {
 }
 
 td {
-  padding: 15px;
+  padding: 18px;
   text-align: center;
   vertical-align: middle;
   font-weight: 300;
   font-size: 15px;
+  border: 2px solid #4281a4;
   color: #717171;
   border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-  border: 3px solid #333533;
-}
-
-body {
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  background: linear-gradient(to right, #25c481, #25b7c4);
-  font-family: Helvetica, cursive;
 }
 
 section {
@@ -80,13 +74,50 @@ section {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/*BUTTON*/
+.no-users-found {
+  text-align: center;
+  margin-top: 30px;
+  font-family: Helvetica, cursive;
+  font-size: 25px;
+}
+
+.empty-list {
+  background-image: url("src/assets/emptyList.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 30%;
+  height: 70%;
+  position: fixed;
+  bottom: 110px;
+  right: 470px;
+}
+
+h2.empty-list-message1 {
+  position: absolute;
+  left: 660px;
+  bottom: 50px;
+  font-family: 'Raleway', sans-serif;
+  color: #5777BA;
+  font-weight: bold;
+  font-size: 20px;
+}
+h2.empty-list-message2{
+  position: absolute;
+  left: 380px;
+  bottom: 15px;
+  font-family: 'Raleway', sans-serif;
+  color: #5777BA;
+  font-weight: bold;
+  font-size: 20px;
+}
+/*BUTTONS*/
 body {
   background: #e5e5e5;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+
 }
 
 .buttons {
@@ -101,19 +132,21 @@ body {
   font-family: 'Noto Sans', sans-serif;
   cursor: pointer;
   box-shadow: -1px 3px 3px 0 rgba(80, 80, 80, .2);
-  width: 155px;
+  width: 120px;
   height: 50px;
   padding: 17px;
   border: none;
-  border-radius: 30px;
+  border-radius: 20px;
   margin: 0 10px 40px;
   color: #fff;
   font-weight: bold;
   flex: 0 0 auto;
+  text-align: center;
+  font-size: 15px;
 }
 
 .btn-1 {
-  background: #626c68;
+  background: #2d2b3e;
   transition: all 0.25s ease-out;
 }
 
@@ -123,34 +156,130 @@ body {
   box-shadow: -6px 14px 12px 2px rgba(90, 90, 90, .12);
 }
 
-.btn-2 {
-  background: #3a3333;
-  transition: box-shadow 0.16s ease;
+
+
+/*.btn-3 {*/
+/*  background: #ffd19a;*/
+/*  !*transition: all 0.3s ease;*!*/
+/*}*/
+
+/*.btn-3:hover {*/
+/*  width: 160px;*/
+/* background: #ffd19a;*/
+/*  box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .2);*/
+/*}*/
+
+/*.btn-4 {*/
+/*  background: #cbbcf6;*/
+/*  transition: all 0.16s ease-in;*/
+/*}*/
+
+/*.btn-4:hover {*/
+/*  background: none;*/
+/*  color: #464646;*/
+/*  box-shadow: 0 0 0 1px rgba(80, 80, 80, .5);*/
+/*}*/
+/*RADIO BUTTON*/
+@import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
-.btn-2:hover {
-  background: #d78e80;
-  box-shadow: none;
+html, body {
+  display: grid;
+  height: 40px;
+  /*height: 100%;*/
+  place-items: center;
+  background: #0069d9;
+  font-family: 'Lato', sans-serif;
 }
 
-.btn-3 {
-  background: #ffd19a;
+.wrapper {
+  display: inline-flex;
+  background: #ffffff;
+  height: 90px;
+  width: 200px;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  padding: 20px 15px;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .option {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
   transition: all 0.3s ease;
 }
 
-.btn-3:hover {
-  width: 160px;
-  background: #ffd19a;
-  box-shadow: -1px 6px 10px 0 rgba(120, 60, 20, .2);
+.wrapper .option .dot {
+  height: 20px;
+  width: 20px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
 }
 
-.btn-4 {
-  background: #cbbcf6;
-  transition: all 0.16s ease-in;
+.wrapper .option .dot::before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: #4a4f54;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
 }
 
-.btn-4:hover {
-  background: none;
-  color: #464646;
-  box-shadow: 0 0 0 1px rgba(80, 80, 80, .5);
+input[type="radio"] {
+  display: none;
+}
+
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2 {
+  border-color: #525559;
+  background: #525559;
+}
+
+#option-1:checked:checked ~ .option-1 .dot,
+#option-2:checked:checked ~ .option-2 .dot {
+  background: #fff;
+}
+
+#option-1:checked:checked ~ .option-1 .dot::before,
+#option-2:checked:checked ~ .option-2 .dot::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wrapper .option span {
+  font-size: 15px;
+  color: #808080;
+}
+
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span {
+  color: #fff;
+}
+
+
+.list-group {
+  margin-top: 12px;
+  margin-left: 50px;
+
 }

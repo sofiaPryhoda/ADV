@@ -9,37 +9,25 @@ import {User} from "../models/user";
 })
 export class UserService {
 
-  private readonly usersURL: string;
+  private usersURL: string = environment.mainURL;
 
   constructor(private http: HttpClient) {
-    this.usersURL = environment.mainURL + '/users';
+
   }
 
-  // public getAll(): Observable<User[]> {
-  //     return this.http.get<User[]>(this.usersURL);
-  // }
-
-  public getAll(): Observable<any> {
-    if (this.isEmptyList()) {
-      console.log("No users found")
-      return this.http.get<User[]>(this.usersURL);
-    } else {
-      return this.http.get<User[]>(this.usersURL);
-    }
+  public getAll(): Observable<User[]> {
+      return this.http.get<User[]>(this.usersURL + '/users');
   }
 
-  isEmptyList(): boolean {
-    if (this.http.get<User[]>(this.usersURL) == undefined) {
-      return false;
-    }
-    return true;
+  public byNameASC(): Observable<User[]>{
+    return this.http.get<User[]>(this.usersURL + '/asc');
   }
 
-  create(user: object): Observable<Object> {
-    return this.http.post(this.usersURL, user);
+  public byNameDESC(): Observable<User[]>{
+    return this.http.get<User[]>(this.usersURL+ '/desk');
   }
 
   public save(user: User) {
-    return this.http.post<User>(this.usersURL, user);
+    return this.http.post<User>(this.usersURL + '/add', user);
   }
 }

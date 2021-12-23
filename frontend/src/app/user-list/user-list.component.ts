@@ -19,4 +19,16 @@ export class UserListComponent implements OnInit {
       this.users = data;
     });
   }
+
+  public byNameASC() {
+    this.userService.byNameDESC().subscribe(data => {
+      this.users = data;
+    });
+  }
+
+  public byNameDESC() {
+    this.userService.byNameDESC().subscribe(data => {
+      this.users = data;
+    });
+  }
 }

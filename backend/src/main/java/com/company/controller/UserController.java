@@ -20,12 +20,22 @@ public class UserController {
         return ResponseEntity.ok(userService.read());
     }
 
+    @GetMapping("/asc")
+    public ResponseEntity<List<UserDTO>> byNameASC() {
+        return ResponseEntity.ok(userService.sortByNameASC());
+    }
+
+    @GetMapping("/desk")
+    public ResponseEntity<List<UserDTO>> byNameDESK() {
+        return ResponseEntity.ok(userService.sortByNameDESK());
+    }
+//desc instead of desk
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @PostMapping("/users")
+    @PostMapping("/add")
     public ResponseEntity<UserDTO> add(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok().body(userService.create(userDTO));
     }

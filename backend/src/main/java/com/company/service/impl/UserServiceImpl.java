@@ -27,13 +27,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> read() {
+
         return userDAO.read().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
+
     @Transactional
     @Override
     public UserDTO update(UserDTO userDTO) {
         return UserMapper.INSTANCE.toDTO(userDAO.update(UserMapper.INSTANCE.toEntity(userDTO)));
     }
+
     @Transactional
     @Override
     public void delete(Long id) {
@@ -43,5 +46,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getById(Long id) {
         return UserMapper.INSTANCE.toDTO(userDAO.getById(id));
+    }
+
+    @Override
+    public List<UserDTO> sortByNameASC() {
+        return userDAO.sortByNameASC().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> sortByNameDESK() {
+        return userDAO.sortByNameDESK().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 }

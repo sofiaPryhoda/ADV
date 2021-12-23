@@ -1,33 +1,35 @@
 <section>
-  <button class="btn btn-1">Add </button>
-  <button class="btn btn-1">Delete</button>
-  <button class="btn btn-1">Update</button>
-  <div class="tbl-header">
-    <table class="table" cellpadding="0" cellspacing="0" border="0">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Phone</th>
-      </tr>
-      </thead>
-    </table>
+  <button onclick="window.location.href='/add'" class="btn btn-1">Add</button>
+  <div class="not-empty" *ngIf="users.length != 0">
+    <div class="tbl-header">
+      <table class="table" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Phone</th>
+
+        </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.surname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="tbl-content">
-    <table>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.name }}</td>
-        <td>{{ user.surname }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="not-empty" *ngIf="users.length == 0">
+    <div class="empty-list"></div>
+    <h2 class="empty-list-message1">User list is empty..</h2>
+    <h2 class="empty-list-message2">Click on the button «Add» and create a new user to make this sad list happy</h2>
   </div>
 </section>
-
-
-
-

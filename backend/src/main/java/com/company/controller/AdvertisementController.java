@@ -21,7 +21,7 @@ public class AdvertisementController {
         return advertisementService.read();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/catid")
     public AdvertisementDTO findById(@PathVariable("id") Long id) {
         return advertisementService.getById(id);
     }
@@ -37,7 +37,7 @@ public class AdvertisementController {
         return ResponseEntity.ok().body("Advertisement was updated successfully");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/catid")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         advertisementService.delete(id);
         return ResponseEntity.ok().body("Category was deleted successfully");

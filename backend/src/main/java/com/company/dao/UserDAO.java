@@ -2,6 +2,9 @@ package com.company.dao;
 
 import com.company.entity.User;
 
-public interface UserDAO extends GenericDAO<User> {
+import java.util.List;
 
+public interface UserDAO extends GenericDAO<User> {
+    List<User> sortByNameASC();
+    List<User> sortByNameDESK();
 }
