@@ -16,7 +16,6 @@ body {
   padding: 15px;
   margin: 30px auto;
   background-color: #fff;
-
   border-width: 1.5px;
   border-color: rgb(190, 190, 190);
   border-style: solid;
@@ -25,17 +24,18 @@ body {
 .input {
   display: block;
   width: 100%;
-  padding: 8px 10px;
-  margin-bottom: 35px;
+  padding: 10px 10px;
+  /*margin-bottom: 55px;*/
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   font-family: inherit;
   font-size: 20px;
+  margin-top: 40px;
 }
 
 .btn {
   display: block;
-  width: 100%;
-  padding: 8px 100px;
+  padding: 8px 70px;
   border: 0;
   background-color: #393941;
   cursor: pointer;
@@ -43,14 +43,48 @@ body {
   font-size: 16px;
   color: #fff;
   height: 45px;
-  margin-top: 180px;
+  margin-top: 70px;
+  margin-left: 120px;
 }
 
 .btn:hover {
   background-color: #7d8085;
 }
 
+.user-form-header {
+  text-align: center;
+  font-size: 33px;
+  color: #3a3333;
+}
 
+.form__error {
+  color: red;
+  text-align: left;
+  font-size: 12px;
+  display: block;
+  margin-top: 3px;
+  display: none;
+}
 
+.form input {
+  outline: none;
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
 
+}
 
+input:valid:not(:placeholder-shown) {
+  border-color: green;
+}
+
+input:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+
+input:invalid:not(:placeholder-shown) + .form__error {
+  display: block;
+}

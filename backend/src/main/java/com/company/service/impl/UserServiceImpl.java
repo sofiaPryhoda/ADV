@@ -47,14 +47,4 @@ public class UserServiceImpl implements UserService {
     public UserDTO getById(Long id) {
         return UserMapper.INSTANCE.toDTO(userDAO.getById(id));
     }
-
-    @Override
-    public List<UserDTO> sortByNameASC() {
-        return userDAO.sortByNameASC().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserDTO> sortByNameDESK() {
-        return userDAO.sortByNameDESK().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
-    }
 }

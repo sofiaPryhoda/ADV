@@ -20,17 +20,7 @@ public class UserController {
         return ResponseEntity.ok(userService.read());
     }
 
-    @GetMapping("/asc")
-    public ResponseEntity<List<UserDTO>> byNameASC() {
-        return ResponseEntity.ok(userService.sortByNameASC());
-    }
-
-    @GetMapping("/desk")
-    public ResponseEntity<List<UserDTO>> byNameDESK() {
-        return ResponseEntity.ok(userService.sortByNameDESK());
-    }
-//desc instead of desk
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
@@ -40,10 +30,15 @@ public class UserController {
         return ResponseEntity.ok().body(userService.create(userDTO));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody UserDTO userDTO) {
-        userService.update(userDTO);
-        return ResponseEntity.ok().body("User was updated successfully");
+    //    @PutMapping("/updateuser")
+//    public ResponseEntity<String> update(@RequestBody UserDTO userDTO) {
+//        userService.update(userDTO);
+//        return ResponseEntity.ok().body("User was updated successfully");
+//    }
+    @PutMapping("update-user/{id}")
+    public UserDTO update(@PathVariable("id") Long id, @RequestBody UserDTO userDTO) {
+        userDTO.setId(id);
+        return userService.update(userDTO);
     }
 
     @DeleteMapping("/{id}")

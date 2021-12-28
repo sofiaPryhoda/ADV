@@ -2,9 +2,21 @@
   <nav class="nav">
     <ul class="navigation-bar">
       <li class="item"><a class="link" href="#">Home</a></li>
+      <li class="item"><a class="link" href="#">Empty</a></li>
       <li class="item"><a class="link" href="/users">Users</a></li>
-      <li class="item"><a class="link" href="#">Empty</a></li>
-      <li class="item"><a class="link" href="#">Empty</a></li>
+
+      <div class="dropdown">
+        <button class="dropbtn">Categories
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <!--          *ngFor="let category of categories-->
+          <a href="#">Category 1</a>
+          <a href="#">Category 2</a>
+          <a href="#">Category 3</a>
+        </div>
+      </div>
+
       <li class="item"><a class="link" href="#">Empty</a></li>
       <li class="item"><a class="link" href="#">Empty</a></li>
     </ul>

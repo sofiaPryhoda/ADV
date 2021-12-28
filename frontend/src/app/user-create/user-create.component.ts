@@ -10,18 +10,20 @@ import {User} from "../models/user";
   styleUrls: ['./user-create.component.css']
 })
 export class UserCreateComponent {
-
   user: User;
+  submitted = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
     this.user = new User();
   }
 
-  onSubmit() {
+  save() {
     this.userService.save(this.user).subscribe(result => this.gotoUserList());
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
   }
 
   gotoUserList() {
