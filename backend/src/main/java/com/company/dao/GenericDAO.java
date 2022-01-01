@@ -9,7 +9,9 @@ public interface GenericDAO<T> {
 
     T update(T entity);
 
-    void delete(Long id);
-
     T getById(Long id);
+
+    void delete(T entity);
+
+    void deleteById(long id);
 }

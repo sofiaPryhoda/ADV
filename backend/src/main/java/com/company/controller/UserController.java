@@ -20,7 +20,7 @@ public class UserController {
         return ResponseEntity.ok(userService.read());
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
@@ -30,15 +30,16 @@ public class UserController {
         return ResponseEntity.ok().body(userService.create(userDTO));
     }
 
-    @PutMapping("update-user/{id}")
+    @CrossOrigin
+    @PutMapping("/updateuser/{id}")
     public UserDTO update(@PathVariable("id") Long id, @RequestBody UserDTO userDTO) {
         userDTO.setId(id);
         return userService.update(userDTO);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        userService.delete(id);
+    @CrossOrigin
+    @DeleteMapping("userdelete/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        userService.deleteById(id);
         return ResponseEntity.ok().body("User was deleted successfully");
     }
 }

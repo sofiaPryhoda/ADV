@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> read() {
-
         return userDAO.read().stream().map(UserMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
@@ -37,14 +36,14 @@ public class UserServiceImpl implements UserService {
         return UserMapper.INSTANCE.toDTO(userDAO.update(UserMapper.INSTANCE.toEntity(userDTO)));
     }
 
-    @Transactional
-    @Override
-    public void delete(Long id) {
-        userDAO.delete(id);
-    }
-
     @Override
     public UserDTO getById(Long id) {
         return UserMapper.INSTANCE.toDTO(userDAO.getById(id));
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(long id) {
+        userDAO.deleteById(id);
     }
 }

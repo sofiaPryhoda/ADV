@@ -1,11 +1,13 @@
-package com.company.dto;
+package obsolete;
 
+import com.company.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
+import obsolete.CategoryDTO2;
 
 @Getter
 @Setter
-public class AdvertisementDTO {
+public class AdvertisementDTO2 {
     private long id;
 
     private String name;
@@ -14,5 +16,5 @@ public class AdvertisementDTO {
 
     private UserDTO user;
 
-    private CategoryDTO category;
+    private CategoryDTO2 category;
 }

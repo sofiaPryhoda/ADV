@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.CategoryDTO;
 import com.company.service.CategoryService;
+import obsolete.CategoryDTO2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +38,9 @@ public class CategoryController {
         return ResponseEntity.ok().body("Category was updated successfully");
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        categoryService.delete(id);
+        categoryService.deleteById(id);
         return ResponseEntity.ok().body("Category was deleted successfully");
     }
 }

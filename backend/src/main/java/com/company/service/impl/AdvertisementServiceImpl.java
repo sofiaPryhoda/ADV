@@ -2,6 +2,7 @@ package com.company.service.impl;
 
 import com.company.dao.AdvertisementDAO;
 import com.company.dto.AdvertisementDTO;
+import obsolete.AdvertisementDTO2;
 import com.company.mappers.AdvertisementMapper;
 import com.company.service.AdvertisementService;
 import org.springframework.stereotype.Service;
@@ -32,18 +33,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
     @Transactional
     @Override
-    public AdvertisementDTO update(AdvertisementDTO advertisementDTO) {
-        return AdvertisementMapper.INSTANCE.toDTO(advertisementDAO.update(AdvertisementMapper.INSTANCE.toEntity(advertisementDTO)));
-    }
-
-    @Transactional
-    @Override
-    public void delete(Long id) {
-        advertisementDAO.delete(id);
+    public AdvertisementDTO update(AdvertisementDTO advertisementDTO2) {
+        return null;
+//                AdvertisementMapper.INSTANCE.toDTO(advertisementDAO.update(AdvertisementMapper.INSTANCE.toEntity(advertisementDTO2)));
     }
 
     @Override
     public AdvertisementDTO getById(Long id) {
         return AdvertisementMapper.INSTANCE.toDTO(advertisementDAO.getById(id));
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(long id) {
+        advertisementDAO.deleteById(id);
     }
 }

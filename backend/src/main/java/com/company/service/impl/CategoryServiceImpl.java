@@ -2,6 +2,7 @@ package com.company.service.impl;
 
 import com.company.dao.CategoryDAO;
 import com.company.dto.CategoryDTO;
+import obsolete.CategoryDTO2;
 import com.company.mappers.CategoryMapper;
 import com.company.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDTO> read() {
         return categoryDAO.read().stream().map(CategoryMapper.INSTANCE::toDTO).collect(Collectors.toList());
+//        return categoryDAO.read().stream().map(CategoryMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -39,12 +41,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
-        categoryDAO.delete(id);
-    }
-
-    @Override
     public CategoryDTO getById(Long id) {
         return CategoryMapper.INSTANCE.toDTO(categoryDAO.getById(id));
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(long id) {
+        categoryDAO.deleteById(id);
     }
 }

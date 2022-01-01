@@ -5,6 +5,7 @@ import com.company.entity.Advertisement;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+
 @Mapper(componentModel = "spring")
 public interface AdvertisementMapper {
     AdvertisementMapper INSTANCE = Mappers.getMapper(AdvertisementMapper.class);

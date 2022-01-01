@@ -41,14 +41,22 @@ public abstract class GenericDaoImpl<T> implements GenericDAO<T> {
         return getSession().get(this.entityClass, id);
     }
 
-    @Override
-    public void delete(Long id) {
-        getSession().delete(id);
-    }
 
     @Override
     public T update(T entity) {
         getSession().update(entity);
         return entity;
+    }
+
+
+    @Override
+    public void delete(T entity) {
+        getSession().delete(entity);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        T entity = getById(id);
+        delete(entity);
     }
 }

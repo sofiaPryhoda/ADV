@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.AdvertisementDTO;
+import obsolete.AdvertisementDTO2;
 import com.company.service.AdvertisementService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class AdvertisementController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-        advertisementService.delete(id);
+        advertisementService.deleteById(id);
         return ResponseEntity.ok().body("Category was deleted successfully");
     }
 }

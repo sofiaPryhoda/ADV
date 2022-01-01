@@ -10,4 +10,5 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDAO {
     public UserDAOImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
+
 }
