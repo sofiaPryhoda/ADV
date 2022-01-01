@@ -9,28 +9,27 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./user-update.component.css']
 })
 export class UserUpdateComponent implements OnInit {
-  id: number | undefined;
+
+  id!: number;
   user: User = new User();
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
-
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.userService.getUser(this.id).subscribe(data => {
-      this.user = data;
-    }, error => console.log(error));
+    this.userService.getUserById(this.id).subscribe(data => {
+      this.user = data
+    });
   }
 
   onSubmit() {
-    this.userService.update(this.id, this.user).subscribe(data => {
-        this.goUserList();
-      }
-      , error => console.log(error));
+    this.userService.updateUser(this.id, this.user).subscribe(data => {
+      this.goToEmployeeList();
+    });
   }
 
-  goUserList() {
+  goToEmployeeList() {
     this.router.navigate(['/users']);
   }
 }

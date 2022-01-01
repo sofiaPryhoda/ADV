@@ -11,7 +11,8 @@
 
 body {
   background: linear-gradient(to right bottom, #ffffff 50%, #cddafd 10%);
-  height: 650px;
+  height: 652px;
+  width: 1323px;
 }
 h2.slogan {
   position: absolute;
