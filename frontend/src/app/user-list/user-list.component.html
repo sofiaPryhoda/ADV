@@ -1,6 +1,18 @@
+<main class="main">
+  <aside class="sidebar">
+    <nav class="nav">
+      <ul>
+        <li class="active"><a href="#">Welcome</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Empty</a></li>
+        <li><a href="#">Empty</a></li>
+      </ul>
+    </nav>
+  </aside>
+</main>
+
 <div class="container">
   <button onclick="window.location.href='/add'" class="btn btn-1">+</button>
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for..">
 
   <ul id="myUL" class="responsive-table" matSort (matSortChange)="sortData($event)">
     <li class="table-header">
@@ -20,31 +32,12 @@
         <div class="dropdown">
           <button class="dropbtn">&#8942;</button>
           <div class="dropdown-content">
-            <a href="#">Update</a>
-            <a href="#">Delete</a>
+            <a (click)="updateUser(user.id!)">Update</a>
+            <a (click)="userDetails(user.id!)">View</a>
+            <a (click)="removeUser(user)">Delete</a>
           </div>
         </div>
-
       </li>
     </div>
   </ul>
 </div>
-<script>
-  function myFunction() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
-
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  }
-</script>

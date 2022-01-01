@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{data.title}}</h4>
+
+</div>
+<div class="modal-body" style="width: 450px; height: 130px">
+  <p><strong>Are you sure you want to delete <span class="text-primary">{{data.message}}</span> profile?</strong></p>
+  <p>All information associated to this user profile will be permanently deleted.
+    <span class="text-danger">This operation can not be undone.</span>
+  </p>
+</div>
+<div class="modal-footer">
+    <input style="margin:1px 10px;" type="button" class="btn btn-danger" value="Delete" [mat-dialog-close]="true">
+    <input type="button" ngbAutofocus class="btn btn-outline-secondary" value="Cancel" [mat-dialog-close]="false">
+</div>

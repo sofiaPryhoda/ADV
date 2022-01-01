@@ -3,6 +3,9 @@ import {UserService} from "../service/user-service.service";
 import {User} from "../models/user";
 import {Sort} from "@angular/material/sort";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+// import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-user-list',
@@ -12,11 +15,7 @@ import {Router} from "@angular/router";
 export class UserListComponent {
   users: User[] = [];
 
-  // sortedData: User[] = [];
-
-  constructor(private userService: UserService, private router: Router) {
-
-  }
+  constructor(private userService: UserService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getUsers();
@@ -29,8 +28,18 @@ export class UserListComponent {
     return this.users;
   }
 
-  updateUser(id: number){
-    this.router.navigate(['update-user', id]);
+  userDetails(id: number) {
+    this.router.navigate(['users', id]);
+  }
+
+  updateUser(id: number) {
+    this.router.navigate(['updateuser', id]);
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id).subscribe(data => {
+      this.getUsers();
+    })
   }
 
   sortData(sort: Sort) {
@@ -52,8 +61,37 @@ export class UserListComponent {
       }
     });
   }
+
+  // @ts-ignore
+  removeUser(userObj) {
+    const confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Profile deletion',
+        message: userObj.name
+      }
+    });
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.users = this.users.filter(item => item.id !== userObj.id);
+        this.deleteUser(userObj.id);
+      }
+    });
+  }
 }
 
+/* removeEmployee(employeeObj) {
+    const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Remove Employee',
+        message: 'Are you sure, you want to remove an employee: ' + employeeObj.Name
+      }
+    });
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.employeeList = this.employeeList.filter(item => item.employeeId !== employeeObj.employeeId);
+      }
+    });
+  }*/
 function compare(a: string | undefined, b: string | undefined, isAsc: boolean) {
   // @ts-ignore
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);

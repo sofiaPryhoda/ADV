@@ -1,16 +1,9 @@
 package com.company.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
-@Getter
-@Setter
-public class CategoryDTO {
+public class CategoryDTOwithADV {
     private Long id;
-
     private String name;
-
-    List<AdvertisementWithoutCat> withoutCatList;
+    private List<AdvertisementDTO> advertisements;
 }

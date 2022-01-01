@@ -5,10 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdvertisementWithoutCat {
-    private long id;
-
+public class CategoryDTO {
+    private Long id;
     private String name;
-
-    private String description;
 }
