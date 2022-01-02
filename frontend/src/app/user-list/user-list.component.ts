@@ -4,7 +4,6 @@ import {User} from "../models/user";
 import {Sort} from "@angular/material/sort";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-// import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
