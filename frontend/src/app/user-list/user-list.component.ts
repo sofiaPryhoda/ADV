@@ -61,37 +61,6 @@ export class UserListComponent {
       }
     });
   }
-
-  // @ts-ignore
-  removeUser(userObj) {
-    const confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        title: 'Profile deletion',
-        message: userObj.name
-      }
-    });
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.users = this.users.filter(item => item.id !== userObj.id);
-        this.deleteUser(userObj.id);
-      }
-    });
-  }
-}
-
-/* removeEmployee(employeeObj) {
-    const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Confirm Remove Employee',
-        message: 'Are you sure, you want to remove an employee: ' + employeeObj.Name
-      }
-    });
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.employeeList = this.employeeList.filter(item => item.employeeId !== employeeObj.employeeId);
-      }
-    });
-  }*/
 function compare(a: string | undefined, b: string | undefined, isAsc: boolean) {
   // @ts-ignore
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
