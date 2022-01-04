@@ -22,11 +22,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
-import {UpdateDialogComponent} from './update-dialog/update-dialog.component';
-import {AdvertisementListComponent} from './advertisement-list/advertisement-list.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {NgxPaginationModule} from "ngx-pagination";
-import {AdvertDetailPopupComponent} from "./advert-detail-popup/advert-detail-popup.component";
+
 
 export class MaterialModule {
 }
