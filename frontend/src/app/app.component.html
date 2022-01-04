@@ -2,7 +2,7 @@
   <nav class="nav">
     <ul class="navigation-bar">
       <li class="item"><a class="link" href="#">Home</a></li>
-      <li class="item"><a class="link" href="#">Empty</a></li>
+      <li class="item"><a class="link" href="/advertisements">Advertisements</a></li>
       <li class="item"><a class="link" href="/users">Users</a></li>
 
       <div class="dropdown">
@@ -10,12 +10,11 @@
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-          <a href="#">Category 1</a>
-          <a href="#">Category 2</a>
-          <a href="#">Category 3</a>
+          <div *ngFor="let category of categories; let i = index">
+            <a href="#">{{category.name}}</a>
+          </div>
         </div>
       </div>
-
       <li class="item"><a class="link" href="#">Empty</a></li>
       <li class="item"><a class="link" href="#">Empty</a></li>
     </ul>

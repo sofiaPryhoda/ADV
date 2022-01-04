@@ -14,7 +14,6 @@ import {CategoryComponent} from './category/category.component';
 import {UserUpdateComponent} from './user-update/user-update.component';
 import {UserDetailComponent} from './user-detail/user-detail.component';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
@@ -23,6 +22,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {UpdateDialogComponent} from './update-dialog/update-dialog.component';
+import {AdvertisementListComponent} from './advertisement-list/advertisement-list.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgxPaginationModule} from "ngx-pagination";
+import {AdvertDetailPopupComponent} from "./advert-detail-popup/advert-detail-popup.component";
 
 export class MaterialModule {
 }
@@ -36,8 +40,10 @@ export class MaterialModule {
     CategoryComponent,
     UserUpdateComponent,
     UserDetailComponent,
-    ConfirmationDialogComponent
-
+    ConfirmationDialogComponent,
+    UpdateDialogComponent,
+    AdvertisementListComponent,
+    AdvertDetailPopupComponent
   ],
   exports: [],
   imports: [
@@ -53,7 +59,9 @@ export class MaterialModule {
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxPaginationModule,
+
   ],
   entryComponents: [ConfirmationDialogComponent],
   providers: [UserService],

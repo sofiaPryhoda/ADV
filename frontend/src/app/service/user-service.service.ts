@@ -9,7 +9,7 @@ import {User} from "../models/user";
 })
 export class UserService {
 
-  private usersURL: string = environment.mainURL;
+  private usersURL: string = environment.mainURL + '/adv';
 
   constructor(private http: HttpClient) {
 
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   public save(user: User) {
-    return this.http.post<User>(this.usersURL + '/add', user);
+    return this.http.post<User>(this.usersURL + '/usersadd', user);
   }
 
   getUserById(id: number): Observable<User> {
@@ -28,10 +28,10 @@ export class UserService {
   }
 
   updateUser(id: number, user: User): Observable<Object> {
-    return this.http.put(`${this.usersURL}/updateuser/${id}`, user);
+    return this.http.put(`${this.usersURL}/users/${id}`, user);
   }
 
   deleteUser(id: number): Observable<Object>{
-    return this.http.delete(`${this.usersURL}/userdelete/${id}`);
+    return this.http.delete(`${this.usersURL}/users/${id}`);
   }
 }

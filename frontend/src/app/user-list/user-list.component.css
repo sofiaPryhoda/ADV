@@ -16,6 +16,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+
 }
 
 .responsive-table .table-header {
@@ -23,16 +24,17 @@ body {
   font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  width: 1090px;
-  margin-left: 5px;
+  width: 1070px;
+  margin-left: 110px;
 }
 
 .responsive-table .table-row {
   background-color: #ffffff;
   box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
   padding-top: 40px;
-  padding-left: 80px;
+  padding-left: 20px;
   font-size: 20px;
+
 }
 
 .responsive-table .col-1 {
@@ -84,6 +86,7 @@ div.scroll-bar {
   height: 435px;
   padding: 1%;
   overflow-y: scroll;
+  margin-left: 105px;
 }
 
 /*Add button*/
@@ -103,13 +106,14 @@ div.scroll-bar {
   flex: 0 0 auto;
   text-align: center;
   font-size: 15px;
-  margin-left: 1050px;
+  margin-left: 1080px;
   margin-top: 30px;
 }
 
 .btn-1 {
   background: #2d2b3e;
   transition: all 0.25s ease-out;
+
 }
 
 .btn-1:hover {
@@ -126,7 +130,7 @@ div.scroll-bar {
   font-size: 30px;
   border: none;
   height: 5px;
-
+  margin-right: 40px;
 }
 
 .dropdown {
@@ -174,6 +178,7 @@ div.scroll-bar {
   border: 1px solid #ddd;
   margin-bottom: 12px;
 }
+
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 body {
   font-family: Helvetica, cursive;
@@ -279,15 +284,14 @@ h1 {
 
 /*slide menu*/
 html {
-  font-family: Arial;
+  font-family: Helvetica, cursive;
   font-size: 16px;
   background: #5777BA;
 }
 
 .sidebar {
   position: fixed;
-  /*width: 25%;*/
-  width: 200px;
+  width: 250px;
   height: 1100px;
   bottom: 0px;
   background: #5777BA;
@@ -299,9 +303,11 @@ html {
   position: relative;
   margin: 0 15%;
   text-align: right;
-  top: 50%;
+  /*top: 50%;*/
+  top: 590px;
   transform: translateY(-50%);
   font-weight: bold;
+  font-size: 13px;
 }
 
 .nav ul {

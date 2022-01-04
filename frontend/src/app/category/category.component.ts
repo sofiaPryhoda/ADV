@@ -11,19 +11,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  // categories: Category[] = [];
-  //
-  // constructor(private categoryService: CategoryService, private router: Router) {
-  //
-  // }
+
   ngOnInit(): void {
-    // this.getCategories();
+
   }
-  //
-  // getCategories(): Category[] {
-  //   this.categoryService.getAll().subscribe(data => {
-  //     this.categories = data;
-  //   });
-  //   return this.categories;
-  // }
 }

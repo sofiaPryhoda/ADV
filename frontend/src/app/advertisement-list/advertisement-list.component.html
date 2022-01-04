@@ -1,0 +1,115 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+      integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous"/>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 mx-auto mb-4">
+      <div class="section-title text-center ">
+        <!--       title-->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <form action="#" class="career-form mb-60">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 my-3">
+            <div class="input-group position-relative">
+              <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords">
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 my-3">
+            <button type="button" class="btn btn-outline-light" id="contact-submit"
+                    style="margin-left: 720px; width: 130px; margin-top: 5px">
+              New advert
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="filter-result" *ngFor="let advert of advertisements | paginate : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index">
+        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+          <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+            <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+              AVD
+            </div>
+          </div>
+          <h5 class="text-center text-md-left" style="width: 200px">{{advert.name}}</h5>
+          <div class="date">
+            <i class="zmdi zmdi-time mr-2"></i> {{advert.creationDate}}
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">&#8942;
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a>Update</a>
+              <a (click)="openDetails(contentDetails, advert)">View</a>
+              <a (click)="removeAdvert(advert)">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
+      <div class="p-2 bd-highlight">
+        <select (change)="onTableSizeChange($event)" class="custom-select">
+          <option *ngFor="let size of tableSizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center" style="margin-left: 100px">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentDetails let-modal>
+  <form style="border-radius: 10px; width: 300px; margin-left: 100px">
+    <div class="form-group">
+      <label for="name">Name: </label>
+      <div class="input-group">
+        <input id="name" class="form-control" readonly disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description: </label>
+      <div class="input-group">
+        <input id="description" class="form-control" readonly disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="user">User: </label>
+      <div class="input-group">
+        <input id="user" class="form-control" readonly disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="category">Category: </label>
+      <div class="input-group">
+        <input id="category" class="form-control" readonly disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="creationDate">Creation date: </label>
+      <div class="input-group">
+        <input id="creationDate" class="form-control" readonly disabled>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>
+

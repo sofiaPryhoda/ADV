@@ -6,13 +6,13 @@
   height: 450px;
   position: fixed;
   bottom: 120px;
-  right: 130px;
+ left: 830px;
 }
 
 body {
   background: linear-gradient(to right bottom, #ffffff 50%, #cddafd 10%);
   height: 652px;
-  width: 1323px;
+  width: 1534px;
 }
 h2.slogan {
   position: absolute;

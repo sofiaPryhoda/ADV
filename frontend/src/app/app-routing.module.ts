@@ -6,16 +6,18 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {UserUpdateComponent} from "./user-update/user-update.component";
 import {UserDetailComponent} from "./user-detail/user-detail.component";
 import {CategoryComponent} from "./category/category.component";
+import {AdvertisementListComponent} from "./advertisement-list/advertisement-list.component";
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
   {path: 'users', component: UserListComponent},
+  {path: 'usersadd', component: UserListComponent},
   {path: 'users/:id', component: UserListComponent},
-  {path: 'userdelete/:id', component: UserListComponent},
-  {path: 'add', component: UserCreateComponent},
-  {path: 'updateuser/:id', component: UserUpdateComponent},
+  {path: 'users/:id', component: UserListComponent},
+  {path: 'users/:id', component: UserListComponent},
   {path: 'users/:id', component: UserDetailComponent},
-  {path: 'all', component: CategoryComponent}
+  {path: 'all', component: CategoryComponent},
+  {path: 'advertisements', component: AdvertisementListComponent}
 ];
 
 @NgModule({
