@@ -36,10 +36,7 @@ export class MaterialModule {
     CategoryComponent,
     UserUpdateComponent,
     UserDetailComponent,
-    ConfirmationDialogComponent,
-    UpdateDialogComponent,
-    AdvertisementListComponent,
-    AdvertDetailPopupComponent
+    ConfirmationDialogComponent
   ],
   exports: [],
   imports: [
