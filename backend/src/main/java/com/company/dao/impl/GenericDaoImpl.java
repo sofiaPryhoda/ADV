@@ -48,7 +48,6 @@ public abstract class GenericDaoImpl<T> implements GenericDAO<T> {
         return entity;
     }
 
-
     @Override
     public void delete(T entity) {
         getSession().delete(entity);

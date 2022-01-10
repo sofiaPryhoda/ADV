@@ -2,6 +2,8 @@ package com.company.service.impl;
 
 import com.company.dao.AdvertisementDAO;
 import com.company.dto.AdvertisementDTO;
+import com.company.dto.CategoryDTO;
+import com.company.mappers.CategoryMapper;
 import obsolete.AdvertisementDTO2;
 import com.company.mappers.AdvertisementMapper;
 import com.company.service.AdvertisementService;
@@ -29,13 +31,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public List<AdvertisementDTO> read() {
-       return advertisementDAO.read().stream().map(AdvertisementMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        return advertisementDAO.read().stream().map(AdvertisementMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
+
+//    @Transactional
+//    @Override
+//    public AdvertisementDTO update(AdvertisementDTO advertisementDTO2) {
+//        return null;
+//    }
+
     @Transactional
     @Override
-    public AdvertisementDTO update(AdvertisementDTO advertisementDTO2) {
-        return null;
-//                AdvertisementMapper.INSTANCE.toDTO(advertisementDAO.update(AdvertisementMapper.INSTANCE.toEntity(advertisementDTO2)));
+    public AdvertisementDTO update(AdvertisementDTO advertisementDTO) {
+        return AdvertisementMapper.INSTANCE.toDTO(advertisementDAO.update(AdvertisementMapper.INSTANCE.toEntity(advertisementDTO)));
     }
 
     @Override

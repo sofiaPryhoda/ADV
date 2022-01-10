@@ -2,6 +2,8 @@ package com.company.service.impl;
 
 import com.company.dao.CategoryDAO;
 import com.company.dto.CategoryDTO;
+import com.company.dto.UserDTO;
+import com.company.mappers.UserMapper;
 import obsolete.CategoryDTO2;
 import com.company.mappers.CategoryMapper;
 import com.company.service.CategoryService;
@@ -31,13 +33,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDTO> read() {
         return categoryDAO.read().stream().map(CategoryMapper.INSTANCE::toDTO).collect(Collectors.toList());
-//        return categoryDAO.read().stream().map(CategoryMapper.INSTANCE::toDto).collect(Collectors.toList());
     }
 
     @Transactional
     @Override
-    public CategoryDTO update(CategoryDTO categoryDto) {
-        return CategoryMapper.INSTANCE.toDTO(categoryDAO.update(CategoryMapper.INSTANCE.toEntity(categoryDto)));
+    public CategoryDTO update(CategoryDTO categoryDTO) {
+        return CategoryMapper.INSTANCE.toDTO(categoryDAO.update(CategoryMapper.INSTANCE.toEntity(categoryDTO)));
     }
 
     @Override

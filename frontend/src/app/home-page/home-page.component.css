@@ -11,8 +11,8 @@
 
 body {
   background: linear-gradient(to right bottom, #ffffff 50%, #cddafd 10%);
-  height: 652px;
-  width: 1534px;
+  height: 620px;
+  width: 1415px;
 }
 h2.slogan {
   position: absolute;
@@ -30,6 +30,6 @@ h1.logo{
   top: 34px;
   font-size: 37px;
   font-weight: lighter;
-  font-family: 'Raleway', sans-serif;
+  font-family: Helvetica, cursive;
   color: #5777BA;
 }

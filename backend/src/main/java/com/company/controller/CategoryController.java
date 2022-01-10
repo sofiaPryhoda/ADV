@@ -1,15 +1,15 @@
 package com.company.controller;
 
 import com.company.dto.CategoryDTO;
+import com.company.dto.UserDTO;
 import com.company.service.CategoryService;
-import obsolete.CategoryDTO2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping({"/categories", "/"})
+@RequestMapping({"/adv", "/"})
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -17,28 +17,40 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/all")
+    //        @GetMapping("/all")
+//    @CrossOrigin
+    @GetMapping("/categories")
     public List<CategoryDTO> all() {
         return categoryService.read();
     }
 
-    @GetMapping("/{id}")
+    //        @CrossOrigin
+    @GetMapping("/categories/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(categoryService.getById(id));
     }
 
-    @PostMapping("/create")
+    //    @CrossOrigin
+    @PostMapping("/categories")
     public ResponseEntity<CategoryDTO> add(@RequestBody CategoryDTO categoryDTO) {
         return ResponseEntity.ok().body(categoryService.create(categoryDTO));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody CategoryDTO categoryDTO) {
-        categoryService.update(categoryDTO);
-        return ResponseEntity.ok().body("Category was updated successfully");
+//    @CrossOrigin
+//    @PutMapping("/categories")
+//    public ResponseEntity<String> update(@RequestBody CategoryDTO categoryDTO) {
+//        categoryService.update(categoryDTO);
+//        return ResponseEntity.ok().body("Category was updated successfully");
+//    }
+    @CrossOrigin
+    @PutMapping("/categories/{id}")
+    public CategoryDTO update(@PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO) {
+        categoryDTO.setId(id);
+        return categoryService.update(categoryDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+    //    @CrossOrigin
+    @DeleteMapping("/categories/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         categoryService.deleteById(id);
         return ResponseEntity.ok().body("Category was deleted successfully");

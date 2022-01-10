@@ -10,70 +10,113 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" style="height: 100px; margin-left: -100px">
     <div class="col-lg-10 mx-auto">
       <form action="#" class="career-form mb-60">
         <div class="row">
           <div class="col-md-6 col-lg-3 my-3">
             <div class="input-group position-relative">
-              <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords">
+              <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords"
+                     name="search" [(ngModel)]="searchText" autocomplete="off">
             </div>
           </div>
+
           <div class="col-md-6 col-lg-3 my-3">
-            <button type="button" class="btn btn-outline-light" id="contact-submit"
-                    style="margin-left: 720px; width: 130px; margin-top: 5px">
+            <button (click)="open(content)" type="button" class="btn btn-outline-light" id="contact-submit"
+                    style="margin-left: 660px; width: 130px; margin-top: 5px">
               New advert
             </button>
           </div>
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-light" id="dropdownBasic1" ngbDropdownToggle>Sort by</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem>Name(asc)</button>
+                  <button ngbDropdownItem>Name(desc)</button>
+                  <button ngbDropdownItem>Default</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
-      <div class="filter-result" *ngFor="let advert of advertisements | paginate : {
-                itemsPerPage: tableSize,
-                currentPage: page,
-                totalItems: count
-              };
-        let i = index">
-        <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
-          <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
-            <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-              AVD
+      <div class="filter-result" *ngFor="let advert of advertisements | filter:searchText | paginate : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    }  ;
+              let i = index">
+        <table class="styled-table">
+          <thead>
+          <tr>
+            <th sortable="name"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+            <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+              <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                AVD
+              </div>
             </div>
+            <tr id="cell1">
+              <td class="text-center text-md-left" style="margin-left: -830px;">
+                <!--                {{advert.name}}-->
+                <div class="my-class">
+                  <h5 id="advertName" class="text-center text-md-left" style="width: 200px">{{advert.name}}</h5>
+                </div>
+
+              </td>
+              <td class="date">
+                <i id="advertDate" class="zmdi zmdi-time mr-2"></i> {{advert.creationDate}}
+              </td>
+              <td>
+<!--                <div class="dropdown">-->
+<!--                  <button class="dropbtn">&#8942;</button>-->
+<!--                  <div class="dropdown-content">-->
+<!--                    <a (click)="openEdit(contentEdit, advert)">Update</a>-->
+<!--                    <a (click)="openDetails(contentDetails, advert)">View</a>-->
+<!--                    <a (click)="removeAdvert(advert)">Delete</a>-->
+<!--                  </div>-->
+<!--                </div>-->
+                <div class="roww">
+                  <div class="coll">
+                    <div ngbDropdown class="d-inline-block">
+                      <button class="btn " id="dropdownBasic2" ngbDropdownToggle>&#8942;</button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                        <button ngbDropdownItem (click)="openEdit(contentEdit, advert)" >Update</button>
+                        <button ngbDropdownItem (click)="removeAdvert(advert)">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
           </div>
-          <h5 class="text-center text-md-left" style="width: 200px">{{advert.name}}</h5>
-          <div class="date">
-            <i class="zmdi zmdi-time mr-2"></i> {{advert.creationDate}}
-          </div>
-          <div class="dropdown">
-            <button class="dropbtn">&#8942;
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content">
-              <a>Update</a>
-              <a (click)="openDetails(contentDetails, advert)">View</a>
-              <a (click)="removeAdvert(advert)">Delete</a>
-            </div>
-          </div>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
+        <div class="p-2 bd-highlight">
+          <select (change)="onTableSizeChange($event)" class="custom-select">
+            <option *ngFor="let size of tableSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
         </div>
       </div>
-    </div>
-    <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
-      <div class="p-2 bd-highlight">
-        <select (change)="onTableSizeChange($event)" class="custom-select">
-          <option *ngFor="let size of tableSizes" [ngValue]="size">
-            {{ size }}
-          </option>
-        </select>
+      <div class="d-flex justify-content-center" style="margin-left: 100px">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
       </div>
-    </div>
-    <div class="d-flex justify-content-center" style="margin-left: 100px">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)">
-      </pagination-controls>
     </div>
   </div>
 </div>
+
 
 <ng-template #contentDetails let-modal>
   <form style="border-radius: 10px; width: 300px; margin-left: 100px">
@@ -86,7 +129,7 @@
     <div class="form-group">
       <label for="description">Description: </label>
       <div class="input-group">
-        <input id="description" class="form-control" readonly disabled>
+        <input id="description" class="form-control" style="height: 200px; text-align: center" readonly disabled>
       </div>
     </div>
     <div class="form-group">
@@ -113,3 +156,128 @@
   </form>
 </ng-template>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New advertisement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input name="name" class="form-control" ngModel>
+        </div>
+      </div>
+      <!--      id="name"-->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <div class="input-group">
+          <input name="description" class="form-control" ngModel>
+        </div>
+      </div>
+      <!--      id="description"-->
+      <div class="form-group">
+        <label>Choose a browser from this list:
+          <input list="browsers" name="myBrowser" class="category-select" ngModel/></label>
+        <datalist id="browsers">
+          <option *ngFor="let category of categories; let i = index" value="{{category.id}}">
+        </datalist>
+      </div>
+
+      <div class="form-group">
+        <select class="form-select" aria-label="Default select example">
+          <option *ngFor="let user of users; let i = index" value="i">{{user.name}}</option>
+        </select>
+      </div>
+      <!--      id="category"-->
+      <div class="border text-center">
+        <button data-dismiss="modal" class="submit-button">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-primary" style="width: 100px; height: 50px;text-align: center;"
+            (click)="modal.close('Save click')">Cancel
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Update user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input name="name" formControlName="name" class="form-control">
+        </div>
+        <div
+          *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].dirty || editForm.controls['name'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="editForm.controls['name'].errors?.['required']">
+            Name is required.
+          </div>
+          <div *ngIf="editForm.controls['name'].errors?.['minlength']">
+            Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="editForm.controls['name'].errors?.['maxlength']">
+            Name must not be longer than 128 characters long.
+          </div>
+          <div *ngIf="editForm.controls['name'].errors?.['pattern']">
+            Name shouldn't contain numbers or other symbols.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <div class="input-group">
+          <input formControlName="description" class="form-control">
+        </div>
+        <div
+          *ngIf="editForm.controls['description'].invalid && (editForm.controls['description'].dirty || editForm.controls['description'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="editForm.controls['description'].errors?.['required']">
+            Surname is required.
+          </div>
+          <div *ngIf="editForm.controls['description'].errors?.['minlength']">
+            Surname must be at least 2 characters long.
+          </div>
+          <div *ngIf="editForm.controls['description'].errors?.['maxlength']">
+            Surname must not be longer than 128 characters long.
+          </div>
+          <div *ngIf="editForm.controls['description'].errors?.['pattern']">
+            Surname shouldn't contain numbers or other symbols.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user">User</label>
+        <div class="input-group">
+          <input formControlName="user" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <div class="input-group">
+          <input formControlName="category" class="form-control">
+        </div>
+      </div>
+      <div class="border text-center">
+        <button data-dismiss="modal" (click)="onSave()">Save Changes</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-primary" style="width: 100px; height: 50px;text-align: center;"
+            (click)="modal.close('Save click')">Cancel
+    </button>
+  </div>
+</ng-template>

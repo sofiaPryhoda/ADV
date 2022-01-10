@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
-import {UserListComponent} from "./user-list/user-list.component";
+import {NgbdSortableHeader, UserListComponent} from "./user-list/user-list.component";
 import {UserCreateComponent} from "./user-create/user-create.component";
 import {HomePageComponent} from './home-page/home-page.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -13,7 +13,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {CategoryComponent} from './category/category.component';
 import {UserUpdateComponent} from './user-update/user-update.component';
 import {UserDetailComponent} from './user-detail/user-detail.component';
-
 
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
@@ -23,11 +22,11 @@ import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {UpdateDialogComponent} from './update-dialog/update-dialog.component';
-import {AdvertisementListComponent} from './advertisement-list/advertisement-list.component';
+import {AdvertisementListComponent, NgbdSortableHeader2} from './advertisement-list/advertisement-list.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {NgxPaginationModule} from "ngx-pagination";
 import {AdvertDetailPopupComponent} from "./advert-detail-popup/advert-detail-popup.component";
-
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 export class MaterialModule {
 }
 
@@ -43,7 +42,9 @@ export class MaterialModule {
     ConfirmationDialogComponent,
     UpdateDialogComponent,
     AdvertisementListComponent,
-    AdvertDetailPopupComponent
+    AdvertDetailPopupComponent,
+    NgbdSortableHeader,
+    NgbdSortableHeader2
   ],
   exports: [],
   imports: [
@@ -61,6 +62,7 @@ export class MaterialModule {
     MatInputModule,
     MatButtonModule,
     NgxPaginationModule,
+    Ng2SearchPipeModule,
 
   ],
   entryComponents: [ConfirmationDialogComponent],

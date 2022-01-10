@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.AdvertisementDTO;
-import obsolete.AdvertisementDTO2;
+import com.company.dto.UserDTO;
 import com.company.service.AdvertisementService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/advertisements", "/"})
+@RequestMapping({"/adv", "/"})
 public class AdvertisementController {
     private final AdvertisementService advertisementService;
 
@@ -17,28 +17,31 @@ public class AdvertisementController {
         this.advertisementService = advertisementService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/advertisements")
     public List<AdvertisementDTO> all() {
         return advertisementService.read();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/advertisements/{id}")
     public AdvertisementDTO findById(@PathVariable("id") Long id) {
         return advertisementService.getById(id);
     }
 
-    @PostMapping("/create")
+//    @CrossOrigin
+    @PostMapping("/advertisements")
     public ResponseEntity<AdvertisementDTO> add(@RequestBody AdvertisementDTO advertisementDTO) {
         return ResponseEntity.ok().body(advertisementService.create(advertisementDTO));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> update(@RequestBody AdvertisementDTO advertisementDTO) {
-        advertisementService.update(advertisementDTO);
-        return ResponseEntity.ok().body("Advertisement was updated successfully");
+    @CrossOrigin
+    @PutMapping("/advertisements/{id}")
+    public AdvertisementDTO update(@PathVariable("id") Long id, @RequestBody AdvertisementDTO advertisementDTO) {
+        advertisementDTO.setId(id);
+        return advertisementService.update(advertisementDTO);
     }
 
-    @DeleteMapping("/delete/{id}")
+//    @CrossOrigin
+    @DeleteMapping("/advertisements/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         advertisementService.deleteById(id);
         return ResponseEntity.ok().body("Category was deleted successfully");

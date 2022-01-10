@@ -1,3 +1,101 @@
+<main class="main">
+  <aside class="sidebar">
+    <nav class="nav">
+      <ul>
+        <li class="active"><a href="#">Welcome</a></li>
+        <li><a href="/categories">Categories</a></li>
+        <li><a href="/users">Users</a></li>
+        <li><a href="#">Empty</a></li>
+      </ul>
+    </nav>
+  </aside>
+</main>
 
 
+<div id="rectangle">
+  <p style="font-size: 18px; margin-left: 15px;font-family: Helvetica, cursive;">Total amount of categories: </p>
+  <p style="font-size: 45px; margin-left: 110px;font-family: Helvetica, cursive;">5</p>
+</div>
+<div id="header">
+</div>
 
+<div class="col-md-6 col-lg-3 my-3">
+  <button (click)="open(content)" type="button" class="btn btn-outline-light"
+          style="margin-left: 200px; width: 150px; margin-top: -160px">
+    New user
+  </button>
+</div>
+
+<div class="box-2">
+  <div class="wrapper">
+    <div class="box" *ngFor="let category of categories; let i = index">{{category.name}}
+
+      <div class="btn-position" style="height: 30px; width: 30px">
+        <div class="dropdown">
+          <button class="dropbtn">&#8942;</button>
+          <div class="dropdown-content">
+            <!--            <a (click)="openEdit(contentEdit, category)">Update</a>-->
+            <a (click)="removeUser(category)">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--</div>-->
+
+
+<!--<ng-template #contentEdit let-modal>-->
+<!--  <div class="modal-header">-->
+<!--    <h4 class="modal-title" id="modal-basic-title2">Update user</h4>-->
+<!--    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">-->
+<!--      <span aria-hidden="true">&times;</span>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--  <div class="modal-body">-->
+<!--    <form [formGroup]="editForm" novalidate (ngSubmit)="submit()">-->
+<!--      <div class="form-group">-->
+<!--        <label for="name">Firstname</label>-->
+<!--        <div class="input-group">-->
+<!--          <input formControlName="name" class="form-control">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="border text-center">-->
+<!--        <button data-dismiss="modal" (click)="onSave()">Save Changes</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--  <div class="modal-footer">-->
+<!--    <button type="button" ngbAutofocus class="btn btn-primary" style="width: 100px; height: 50px;text-align: center;"-->
+<!--            (click)="modal.close('Save click')">Cancel-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</ng-template>-->
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input id="name" name="name" class="form-control" ngModel>
+        </div>
+      </div>
+      <div class="border text-center">
+        <button data-dismiss="modal" class="submit-button">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-primary" style="width: 100px; height: 50px;text-align: center;"
+            (click)="modal.close('Save click')">Cancel
+    </button>
+  </div>
+</ng-template>

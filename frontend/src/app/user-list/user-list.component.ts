@@ -1,15 +1,46 @@
-import {Component} from '@angular/core';
+import {Component, Directive, EventEmitter, Input, Output, QueryList, ViewChildren} from '@angular/core';
 import {UserService} from "../service/user-service.service";
 import {User} from "../models/user";
-import {Sort} from "@angular/material/sort";
 import {Router} from "@angular/router";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {VERSION} from "@angular/material/core";
 import {UpdateDialogComponent} from "../update-dialog/update-dialog.component";
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+
+
+export type SortColumn = keyof User | '';
+export type SortDirection = 'asc' | 'desc' | '';
+const rotate: { [key: string]: SortDirection } = {'asc': 'desc', 'desc': '', '': 'asc'};
+
+const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+
+export interface SortEvent {
+  column: SortColumn;
+  direction: SortDirection;
+}
+
+@Directive({
+  selector: 'th[sortable]',
+  host: {
+    '[class.asc]': 'direction === "asc"',
+    '[class.desc]': 'direction === "desc"',
+    '(click)': 'rotate()'
+  }
+})
+export class NgbdSortableHeader {
+
+  @Input() sortable: SortColumn = '';
+  @Input() direction: SortDirection = '';
+  @Output() sort = new EventEmitter<SortEvent>();
+
+  rotate() {
+    this.direction = rotate[this.direction];
+    this.sort.emit({column: this.sortable, direction: this.direction});
+  }
+}
 
 @Component({
   selector: 'app-user-list',
@@ -20,15 +51,94 @@ export class UserListComponent {
   users: User[] = [];
   closeResult!: string;
   editForm!: FormGroup;
+  addForm!: NgForm;
   version = VERSION;
-
+  page = 1;
+  count = 0;
+  tableSize = 4;
+  tableSizes = [2, 4, 6];
   fileNameDialogRef!: MatDialogRef<UpdateDialogComponent>;
+  searchText: any;
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> | undefined;
 
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private httpClient: HttpClient, private dialog: MatDialog, private modalService: NgbModal) {
+  constructor(private userService: UserService, private router: Router,
+              private fb: FormBuilder, private httpClient: HttpClient,
+              private dialog: MatDialog, private modalService: NgbModal) {
+  }
+
+  onSort({column, direction}: SortEvent) {
+
+    this.headers!.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+
+    if (direction === '' || column === '') {
+      this.users;
+    } else {
+      this.users.sort((a, b) => {
+        const res = compare(a[column]!, b[column]!);
+        return direction === 'asc' ? res : -res;
+      });
+    }
+  }
+
+  submit() {
+    console.log(this.editForm);
   }
 
   ngOnInit() {
     this.getUsers();
+    this.editForm = new FormGroup({
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(128),
+        Validators.pattern("[a-zA-Z]+")]),
+
+      surname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(128),
+        Validators.pattern("[a-zA-Z]+")]),
+
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.minLength(11),
+        Validators.maxLength(128)
+      ]),
+      phone: new FormControl("",
+        [
+          Validators.required,
+          Validators.pattern("((\\+38)?\\(?\\d{3}\\)?[\\s\\.-]?(\\d{7}|\\d{3}[\\s\\.-]\\d{2}[\\s\\.-]\\d{2}|\\d{3}-\\d{4}))"),
+          Validators.minLength(13),
+          Validators.maxLength(13)])
+    });
+  }
+
+  openEdit(targetModal: any, user: User) {
+    this.modalService.open(targetModal, {
+      backdrop: 'static',
+      size: 'lg'
+    });
+    this.editForm.patchValue({
+      id: user.id,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      phone: user.phone
+    });
+  }
+
+  onSave() {
+    this.userService.updateUser(this.editForm.value.id, this.editForm.value)
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modalService.dismissAll();
+      });
   }
 
   getUsers(): User[] {
@@ -42,34 +152,10 @@ export class UserListComponent {
     this.router.navigate(['users', id]);
   }
 
-  updateUser(id: number) {
-    this.router.navigate(['users', id]);
-  }
-
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(data => {
       this.getUsers();
     })
-  }
-
-  sortData(sort: Sort) {
-    const data = this.users.slice();
-    if (!sort.active || sort.direction === '') {
-      this.users = data;
-      return;
-    }
-
-    this.users = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name':
-          return compare(a.name, b.name, isAsc);
-        case 'surname':
-          return compare(a.name, b.name, isAsc);
-        default:
-          return 0;
-      }
-    });
   }
 
   removeUser(userObj: User) {
@@ -87,16 +173,15 @@ export class UserListComponent {
     });
   }
 
-  // @ts-ignore
-  open(content) {
+  open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-// @ts-ignore
-  private getDismissReason(reason): string {
+
+  private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -115,9 +200,16 @@ export class UserListComponent {
   gotoUserList() {
     this.router.navigate(['/users']);
   }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getUsers();
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getUsers();
+  }
 }
 
-function compare(a: string | undefined, b: string | undefined, isAsc: boolean) {
-  // @ts-ignore
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
