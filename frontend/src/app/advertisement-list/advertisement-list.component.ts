@@ -14,7 +14,6 @@ import {UserService} from "../service/user-service.service";
 import {NgbdSortableHeader} from "../user-list/user-list.component";
 
 
-
 export type SortColumn = keyof User | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = {'asc': 'desc', 'desc': '', '': 'asc'};
@@ -47,7 +46,6 @@ export class NgbdSortableHeader2 {
 }
 
 
-
 @Component({
   selector: 'app-advertisement-list',
   templateUrl: './advertisement-list.component.html',
@@ -65,7 +63,10 @@ export class AdvertisementListComponent implements OnInit {
   closeResult!: string;
   searchText: any;
   editForm!: FormGroup;
+  addForm!: FormGroup;
+  isValidated = false;
   @ViewChildren(NgbdSortableHeader2) headers: QueryList<NgbdSortableHeader2> | undefined;
+
   constructor(private advertisementService: AdvertisementService,
               private router: Router, public dialog: MatDialog,
               private modalService: NgbModal,
@@ -85,7 +86,6 @@ export class AdvertisementListComponent implements OnInit {
       size: 'lg'
 
     });
-
     // @ts-ignore
     document.getElementById('name').setAttribute('value', advert.name);
     // @ts-ignore
@@ -102,28 +102,56 @@ export class AdvertisementListComponent implements OnInit {
     this.getAdverts();
     this.getCategories();
     this.getUsers();
-    // this.editForm = new FormGroup({
-    //   id: new FormControl('', Validators.required),
-    //   name: new FormControl('', [
-    //     Validators.required,
-    //     Validators.minLength(2),
-    //     Validators.maxLength(128),
-    //     Validators.pattern("[a-zA-Z]+")]),
-    //
-    //   description: new FormControl('', [
-    //     Validators.required,
-    //     Validators.minLength(2),
-    //     Validators.maxLength(128),
-    //     Validators.pattern("[a-zA-Z]+")])
-    // });
+    this.editForm = new FormGroup({
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(256),
+        Validators.pattern("[a-zA-Z]+")]),
 
-    this.editForm = this.fb.group({
-      id: [''],
-      name: [''],
-      description: [''],
-      user: [''],
-      category: ['']
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(1024),
+        Validators.pattern("[a-zA-Z]+")]),
+      user: new FormControl('', {}),
+      category: new FormControl('', {}),
     });
+
+    // this.addForm = this.fb.group({
+    //   name: ['', Validators.required],
+    //   description: ['', Validators.required],
+    //   user: ['', Validators.required],
+    //   category: ['', Validators.required],
+    // });
+  }
+
+  myForm = this.fb.group({
+    name: new FormControl('', Validators.minLength(2)),
+    description: new FormControl('', Validators.minLength(2)),
+    user: new FormControl(this.users),
+    category: new FormControl(this.categories)
+  })
+
+  get user() {
+    return this.myForm.get('users');
+  }
+
+  changeUser(e: any) {
+    this.user!.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  // @ts-ignore
+  submit() {
+    this.isValidated = true;
+    if (!this.myForm.valid) {
+      return false;
+    } else {
+      this.advertisementService.save(this.myForm.value).subscribe(result => this.gotoAdvertList());
+    }
   }
 
   getAdverts(): Advertisement[] {
@@ -183,12 +211,6 @@ export class AdvertisementListComponent implements OnInit {
     }
   }
 
-  onSubmit(f: NgForm) {
-    this.advertisementService.save(f.value).subscribe(result => this.gotoAdvertList());
-    this.getAdverts();
-    this.modalService.dismissAll();
-  }
-
   gotoAdvertList() {
     this.router.navigate(['/advertisements']);
   }
@@ -205,10 +227,6 @@ export class AdvertisementListComponent implements OnInit {
       this.users = data;
     });
     return this.users;
-  }
-
-  submit() {
-    console.log(this.editForm);
   }
 
   openEdit(targetModal: any, advertisement: Advertisement) {
@@ -234,7 +252,6 @@ export class AdvertisementListComponent implements OnInit {
   }
 
   onSort({column, direction}: SortEvent) {
-
     this.headers!.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
@@ -251,6 +268,32 @@ export class AdvertisementListComponent implements OnInit {
       });
     }
   }
+
+  form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(256),
+      Validators.pattern("([A-Z][a-zA-Z]*)")]),
+    description: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(1024),
+      Validators.pattern("([A-Z][a-zA-Z]*)")]),
+    user: new FormControl(this.users),
+    category: new FormControl(this.categories)
+  });
+
+  onSubmit(): void {
+    this.advertisementService.save(this.form.value).subscribe(result => this.gotoAdvertList());
+    this.gotoAdvertList();
+    this.modalService.dismissAll();
+  }
+
+  compareFn(u1: User, u2: User): boolean {
+    return u1 && u2 ? u1.id === u2.id : u1 === u2;
+  }
+
 }
 
 

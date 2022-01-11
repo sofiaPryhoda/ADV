@@ -40,9 +40,9 @@ public class AdvertisementController {
         return advertisementService.update(advertisementDTO);
     }
 
-//    @CrossOrigin
+    @CrossOrigin
     @DeleteMapping("/advertisements/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         advertisementService.deleteById(id);
         return ResponseEntity.ok().body("Category was deleted successfully");
     }

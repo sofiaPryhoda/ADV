@@ -94,6 +94,7 @@ body {
   text-align: center;
   height: 100px;
   margin-top: 40px;
+  width: 200px;
 }
 
 #rectangle {
@@ -131,7 +132,6 @@ body {
   font-size: 30px;
   border: none;
   height: 5px;
-  /*margin-left: 50px;*/
 }
 
 .dropdown {

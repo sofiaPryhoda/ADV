@@ -280,27 +280,20 @@ html * {
   box-sizing: border-box;
 }
 
-/***************************************************/
 .form-select {
   display: block;
   width: 60%;
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-  /*-moz-padding-start: calc(0.75rem - 3px);*/
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  /*color: #212529;*/
   color: #ffffff;
   background-color: #fff;
-  /*background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e);*/
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  /*transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
-  /*-webkit-appearance: none;*/
-  /*-moz-appearance: none;*/
   appearance: none;
   height: 40px;
   margin-top: 15px;
@@ -316,9 +309,7 @@ button.submit-button {
   background-color: #2d2b3e;
 }
 
-
 input.category-select {
-  /* margin-left: 10px; */
   margin: 0;
   font-family: inherit;
   font-size: inherit;
@@ -327,22 +318,22 @@ input.category-select {
   border-radius: 7px;
 }
 
-/*td.last{ position:absolute; left: 100px; top: 40px}*/
 td h2 {
   position: relative;
   margin-top: 40px;
 }
 
 #advertName {
-  margin-left: -830px;
+  margin-left: -890px;
   font-size: 27px;
   margin-top: -100px;
 }
 
-#advertDate{
-
-  margin-top: -150px;
+.creationDate {
+  margin-top: -80px;
+  margin-left: 230px;
 }
+
 .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -352,14 +343,44 @@ td h2 {
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
   width: 1465px;
+  height: 80px;
 }
+
 button#dropdownBasic1 {
   margin-left: 800px;
   margin-top: -170px;
 }
+
 button#dropdownBasic2 {
-  /*margin-left: 30px;*/
   width: 40px;
   height: 30px;
   font-weight: bold;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  width: 533px;
+  height: 400px;
+}
+
+.col-lg-10.mx-auto {
+  margin-left: 120px;
+  margin-top: -80px;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+  margin-top: -51.5px;
+  margin-right: 320px;
+  border: 3px solid #34689d;
+  height: 40px;
+  border-radius: 10px;
 }

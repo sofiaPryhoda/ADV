@@ -24,6 +24,7 @@ public class CategoryController {
         return categoryService.read();
     }
 
+
     //        @CrossOrigin
     @GetMapping("/categories/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable("id") Long id) {
@@ -36,12 +37,6 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.create(categoryDTO));
     }
 
-//    @CrossOrigin
-//    @PutMapping("/categories")
-//    public ResponseEntity<String> update(@RequestBody CategoryDTO categoryDTO) {
-//        categoryService.update(categoryDTO);
-//        return ResponseEntity.ok().body("Category was updated successfully");
-//    }
     @CrossOrigin
     @PutMapping("/categories/{id}")
     public CategoryDTO update(@PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO) {

@@ -11,11 +11,6 @@
   </aside>
 </main>
 
-<div id="rectangle">
-<!--  <p style="font-size: 18px; margin-left: 15px;font-family: Helvetica, cursive;">Total amount of categories: </p>-->
-<!--  <p style="font-size: 45px; margin-left: 110px;font-family: Helvetica, cursive;">5</p>-->
-</div>
-<div id="square"></div>
 <div class="box">
   <p class="part-1">SHOW</p>
   <p class="part-2">ENTITIES</p>
@@ -51,8 +46,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users| filter:searchText
-| paginate : {
+      <tr *ngFor="let user of users| filter:searchText | paginate : {
                 itemsPerPage: tableSize,
                 currentPage: page,
                 totalItems: count
@@ -62,13 +56,6 @@
         <td>{{user.email}}</td>
         <td>{{user.phone}}</td>
         <td>
-<!--          <div class="dropdown">-->
-<!--            <button class="dropbtn">&#8942;</button>-->
-<!--            <div class="dropdown-content">-->
-<!--              <a (click)="openEdit(contentEdit, user)">Update</a>-->
-<!--              <a (click)="removeUser(user)">Delete</a>-->
-<!--            </div>-->
-<!--          </div>-->
           <div class="roww">
             <div class="coll">
               <div ngbDropdown class="d-inline-block">
@@ -83,54 +70,54 @@
         </td>
       </tr>
       </tbody>
+      <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
+        <div class="d-flex justify-content-center">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+      </div>
     </table>
   </div>
 </div>
-<div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
-  <div class="d-flex justify-content-center">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      (pageChange)="onTableDataChange($event)">
-    </pagination-controls>
-  </div>
-</div>
 
+
+<!--CREATE USER-->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New user</h4>
+    <h4 class="modal-title" id="modal-basic-title">New category</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label>Name</label>
         <div class="input-group">
-          <input id="name" name="name" class="form-control" ngModel>
+          <input formControlName="name" placeholder="Name">
         </div>
-      </div>
-      <div class="form-group">
-        <label for="surname">Surname</label>
-        <div class="input-group">
-          <input id="surname" name="surname" class="form-control" ngModel>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <div class="input-group">
-          <input id="email" name="email" class="form-control" ngModel>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <div class="input-group">
-          <input id="phone" name="phone" class="form-control" ngModel>
+        <div
+          *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['name'].errors?.['required']">
+            Name is required.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['minlength']">
+            Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['maxlength']">
+            Name must not be longer than 128 characters long.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['pattern']">
+            Name must start from capital letter and contain only letters.
+          </div>
         </div>
       </div>
       <div class="border text-center">
-        <button data-dismiss="modal" class="submit-button">Submit</button>
+        <button data-dismiss="modal" class="submit-button" [disabled]="!form.valid">Submit</button>
       </div>
     </form>
   </div>
@@ -141,6 +128,7 @@
   </div>
 </ng-template>
 
+<!--UPDATE USER-->
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Update user</h4>
@@ -151,7 +139,7 @@
   <div class="modal-body">
     <form [formGroup]="editForm" novalidate (ngSubmit)="submit()">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label>Name</label>
         <div class="input-group">
           <input name="name" formControlName="name" class="form-control">
         </div>
@@ -168,12 +156,12 @@
             Name must not be longer than 128 characters long.
           </div>
           <div *ngIf="editForm.controls['name'].errors?.['pattern']">
-            Name shouldn't contain numbers or other symbols.
+            Name must start from capital letter and contain only letters.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="surname">Surname</label>
+        <label>Surname</label>
         <div class="input-group">
           <input formControlName="surname" class="form-control">
         </div>
@@ -190,12 +178,12 @@
             Surname must not be longer than 128 characters long.
           </div>
           <div *ngIf="editForm.controls['surname'].errors?.['pattern']">
-            Surname shouldn't contain numbers or other symbols.
+            Surname must start from capital letter and contain only letters.
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label>Email</label>
         <div class="input-group">
           <input formControlName="email" class="form-control">
         </div>
@@ -217,7 +205,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="phone">Phone</label>
+        <label>Phone</label>
         <div class="input-group">
           <input formControlName="phone" class="form-control">
         </div>
@@ -239,7 +227,7 @@
         </div>
       </div>
       <div class="border text-center">
-        <button data-dismiss="modal" (click)="onSave()">Save Changes</button>
+        <button data-dismiss="modal" (click)="onSave()" [disabled]="!editForm.valid">Save Changes</button>
       </div>
     </form>
   </div>

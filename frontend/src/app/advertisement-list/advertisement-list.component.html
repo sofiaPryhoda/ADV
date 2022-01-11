@@ -9,7 +9,6 @@
       </div>
     </div>
   </div>
-
   <div class="row" style="height: 100px; margin-left: -100px">
     <div class="col-lg-10 mx-auto">
       <form action="#" class="career-form mb-60">
@@ -20,7 +19,6 @@
                      name="search" [(ngModel)]="searchText" autocomplete="off">
             </div>
           </div>
-
           <div class="col-md-6 col-lg-3 my-3">
             <button (click)="open(content)" type="button" class="btn btn-outline-light" id="contact-submit"
                     style="margin-left: 660px; width: 130px; margin-top: 5px">
@@ -39,8 +37,10 @@
               </div>
             </div>
           </div>
+
         </div>
       </form>
+
       <div class="filter-result" *ngFor="let advert of advertisements | filter:searchText | paginate : {
                       itemsPerPage: tableSize,
                       currentPage: page,
@@ -61,31 +61,19 @@
               </div>
             </div>
             <tr id="cell1">
-              <td class="text-center text-md-left" style="margin-left: -830px;">
-                <!--                {{advert.name}}-->
+              <td class="text-center text-md-left" style="margin-left: -880px;">
                 <div class="my-class">
-                  <h5 id="advertName" class="text-center text-md-left" style="width: 200px">{{advert.name}}</h5>
+                  <h5 id="advertName" style="text-align: left">{{advert.name}}</h5>
                 </div>
-
-              </td>
-              <td class="date">
-                <i id="advertDate" class="zmdi zmdi-time mr-2"></i> {{advert.creationDate}}
               </td>
               <td>
-<!--                <div class="dropdown">-->
-<!--                  <button class="dropbtn">&#8942;</button>-->
-<!--                  <div class="dropdown-content">-->
-<!--                    <a (click)="openEdit(contentEdit, advert)">Update</a>-->
-<!--                    <a (click)="openDetails(contentDetails, advert)">View</a>-->
-<!--                    <a (click)="removeAdvert(advert)">Delete</a>-->
-<!--                  </div>-->
-<!--                </div>-->
                 <div class="roww">
                   <div class="coll">
                     <div ngbDropdown class="d-inline-block">
                       <button class="btn " id="dropdownBasic2" ngbDropdownToggle>&#8942;</button>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                        <button ngbDropdownItem (click)="openEdit(contentEdit, advert)" >Update</button>
+                        <button ngbDropdownItem (click)="openEdit(contentEdit, advert)">Update</button>
+                        <button ngbDropdownItem (click)="openDetails(contentDetails, advert)">View</button>
                         <button ngbDropdownItem (click)="removeAdvert(advert)">Delete</button>
                       </div>
                     </div>
@@ -95,17 +83,12 @@
             </tr>
           </div>
           </tbody>
+          <div class="creationDate">
+            <i id="advertDate" class="zmdi zmdi-time mr-2"></i> {{advert.creationDate}}
+          </div>
         </table>
       </div>
-      <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
-        <div class="p-2 bd-highlight">
-          <select (change)="onTableSizeChange($event)" class="custom-select">
-            <option *ngFor="let size of tableSizes" [ngValue]="size">
-              {{ size }}
-            </option>
-          </select>
-        </div>
-      </div>
+
       <div class="d-flex justify-content-center" style="margin-left: 100px">
         <pagination-controls
           previousLabel="Prev"
@@ -113,41 +96,53 @@
           (pageChange)="onTableDataChange($event)">
         </pagination-controls>
       </div>
+      <div class="items-amount">
+        <div class="d-flex flex-row-reverse bd-highlight mb-2" style="margin-left: 18px; margin-bottom: 20px">
+          <div class="p-2 bd-highlight">
+            <select (change)="onTableSizeChange($event)" class="custom-select">
+              <option *ngFor="let size of tableSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 
+<!--ADVERT DETAILS-->
 <ng-template #contentDetails let-modal>
   <form style="border-radius: 10px; width: 300px; margin-left: 100px">
     <div class="form-group">
       <label for="name">Name: </label>
       <div class="input-group">
-        <input id="name" class="form-control" readonly disabled>
+        <input id="name" class="form-control" readonly>
       </div>
     </div>
     <div class="form-group">
       <label for="description">Description: </label>
       <div class="input-group">
-        <input id="description" class="form-control" style="height: 200px; text-align: center" readonly disabled>
+        <input id="description" class="form-control" style="height: 200px; text-align: center" readonly>
       </div>
     </div>
     <div class="form-group">
       <label for="user">User: </label>
       <div class="input-group">
-        <input id="user" class="form-control" readonly disabled>
+        <input id="user" class="form-control" readonly>
       </div>
     </div>
     <div class="form-group">
       <label for="category">Category: </label>
       <div class="input-group">
-        <input id="category" class="form-control" readonly disabled>
+        <input id="category" class="form-control" readonly>
       </div>
     </div>
     <div class="form-group">
       <label for="creationDate">Creation date: </label>
       <div class="input-group">
-        <input id="creationDate" class="form-control" readonly disabled>
+        <input id="creationDate" class="form-control" readonly>
       </div>
     </div>
     <div class="modal-footer">
@@ -156,45 +151,76 @@
   </form>
 </ng-template>
 
+<!--CREATE ADVERT-->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New advertisement</h4>
+    <h4 class="modal-title" id="modal-basic-title">New category</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label>Name</label>
         <div class="input-group">
-          <input name="name" class="form-control" ngModel>
+          <input formControlName="name" placeholder="Name">
+        </div>
+        <div
+          *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['name'].errors?.['required']">
+            Name is required.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['minlength']">
+            Name must be at least 5 characters long.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['maxlength']">
+            Name must not be longer than 256 characters long.
+          </div>
+          <div *ngIf="form.controls['name'].errors?.['pattern']">
+            Name must start from capital letter and contain only letters.
+          </div>
         </div>
       </div>
-      <!--      id="name"-->
       <div class="form-group">
-        <label for="description">Description</label>
+        <label>Description</label>
         <div class="input-group">
-          <input name="description" class="form-control" ngModel>
+          <input formControlName="description" placeholder="Description">
+        </div>
+        <div
+          *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['description'].errors?.['required']">
+            Description is required.
+          </div>
+          <div *ngIf="form.controls['description'].errors?.['minlength']">
+            Description must be at least 5 characters long.
+          </div>
+          <div *ngIf="form.controls['description'].errors?.['maxlength']">
+            Description must not be longer than 1024 characters long.
+          </div>
+          <div *ngIf="form.controls['description'].errors?.['pattern']">
+            Description must start from capital letter and contain only letters.
+          </div>
         </div>
       </div>
-      <!--      id="description"-->
       <div class="form-group">
-        <label>Choose a browser from this list:
-          <input list="browsers" name="myBrowser" class="category-select" ngModel/></label>
-        <datalist id="browsers">
-          <option *ngFor="let category of categories; let i = index" value="{{category.id}}">
-        </datalist>
-      </div>
-
-      <div class="form-group">
-        <select class="form-select" aria-label="Default select example">
-          <option *ngFor="let user of users; let i = index" value="i">{{user.name}}</option>
+        <select [compareWith]="compareFn" formControlName="user">
+          <option *ngFor="let user of users" [ngValue]="user">
+            {{ user.name }}
+          </option>
         </select>
       </div>
-      <!--      id="category"-->
+      <div class="form-group">
+        <select [compareWith]="compareFn" formControlName="category">
+          <option *ngFor="let category of categories" [ngValue]="category">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
       <div class="border text-center">
-        <button data-dismiss="modal" class="submit-button">Submit</button>
+        <button data-dismiss="modal" class="submit-button" [disabled]="!form.valid">Submit</button>
       </div>
     </form>
   </div>
@@ -205,6 +231,7 @@
   </div>
 </ng-template>
 
+<!--UPDATE ADVERT-->
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Update user</h4>
@@ -258,20 +285,8 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="user">User</label>
-        <div class="input-group">
-          <input formControlName="user" class="form-control">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="category">Category</label>
-        <div class="input-group">
-          <input formControlName="category" class="form-control">
-        </div>
-      </div>
       <div class="border text-center">
-        <button data-dismiss="modal" (click)="onSave()">Save Changes</button>
+        <button data-dismiss="modal" (click)="onSave()" [disabled]="!editForm.valid">Save Changes</button>
       </div>
     </form>
   </div>

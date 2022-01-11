@@ -379,9 +379,9 @@ html {
 
 .box {
   box-shadow: -2px 1px 28px -1px rgb(159 159 159 / 20%);
-  width: 1000px;
-  height: 555px;
-  margin-left: 250px;
+  width: 1157px;
+  height: 95px;
+  margin-left: 205px;
   border-radius: 30px;
   margin-top: 25px;
 }
@@ -422,7 +422,8 @@ select {
 }
 
 pagination-controls {
-  margin-top: -50px;
+  margin-top: 0px;
+ width: 290px;
 }
 
 .box-header {
@@ -440,7 +441,7 @@ pagination-controls {
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 1000px;
-  margin-left: -49px;
+  margin-left: -50px;
   margin-top: -75px;
   box-shadow: -2px 1px 28px -1px rgba(84, 84, 84, 0.2);
 }
@@ -453,7 +454,7 @@ pagination-controls {
 
 .styled-table th,
 .styled-table td {
-  padding: 12px 15px;
+  padding: 12px 45px;
 }
 
 .styled-table tbody tr {

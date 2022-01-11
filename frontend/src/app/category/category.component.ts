@@ -6,7 +6,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UpdateDialogComponent} from "../update-dialog/update-dialog.component";
-import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-category',
@@ -30,17 +30,12 @@ export class CategoryComponent implements OnInit {
     this.getCategories();
     this.editForm = this.fb.group({
       id: [''],
-      "name": ['']
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(128),
+        Validators.pattern("([A-Z][a-zA-Z]*)")])
     });
-
-    // this.editForm = new FormGroup({
-    //   id: new FormControl('', Validators.required),
-    //   name: new FormControl('', [
-    //     Validators.required,
-    //     Validators.minLength(2),
-    //     Validators.maxLength(128),
-    //     Validators.pattern("[a-zA-Z]+")])
-    // });
   }
 
   getCategories(): Category[] {
@@ -89,12 +84,6 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  onSubmit(f: NgForm) {
-    this.categoryService.save(f.value).subscribe(result => this.gotoCategoryList());
-    this.ngOnInit();
-    this.modalService.dismissAll();
-  }
-
   gotoCategoryList() {
     this.router.navigate(['/categories']);
   }
@@ -120,5 +109,19 @@ export class CategoryComponent implements OnInit {
 
   submit() {
     console.log(this.editForm);
+  }
+
+  form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(128),
+      Validators.pattern("([A-Z][a-zA-Z]*)")])
+  });
+
+  onSubmit(): void {
+    this.categoryService.save(this.form.value).subscribe(result => this.gotoCategoryList());
+    this.gotoCategoryList();
+    this.modalService.dismissAll();
   }
 }

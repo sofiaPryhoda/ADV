@@ -56,7 +56,7 @@ export class UserListComponent {
   page = 1;
   count = 0;
   tableSize = 4;
-  tableSizes = [2, 4, 6];
+  tableSizes = [4, 6, 8, 12];
   fileNameDialogRef!: MatDialogRef<UpdateDialogComponent>;
   searchText: any;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> | undefined;
@@ -96,19 +96,17 @@ export class UserListComponent {
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(128),
-        Validators.pattern("[a-zA-Z]+")]),
+        Validators.pattern("([A-Z][a-zA-Z]*)")]),
 
       surname: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(128),
-        Validators.pattern("[a-zA-Z]+")]),
+        Validators.pattern("([A-Z][a-zA-Z]*)")]),
 
       email: new FormControl('', [
         Validators.required,
         Validators.email,
-        Validators.minLength(11),
-        Validators.maxLength(128)
       ]),
       phone: new FormControl("",
         [
@@ -191,11 +189,11 @@ export class UserListComponent {
     }
   }
 
-  onSubmit(f: NgForm) {
-    this.userService.save(f.value).subscribe(result => this.gotoUserList());
-    this.getUsers();
-    this.modalService.dismissAll();
-  }
+  // onSubmit(f: NgForm) {
+  //   this.userService.save(f.value).subscribe(result => this.gotoUserList());
+  //   this.getUsers();
+  //   this.modalService.dismissAll();
+  // }
 
   gotoUserList() {
     this.router.navigate(['/users']);
@@ -210,6 +208,35 @@ export class UserListComponent {
     this.tableSize = event.target.value;
     this.page = 1;
     this.getUsers();
+  }
+
+  form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(128),
+      Validators.pattern("([A-Z][a-zA-Z]*)")]),
+    surname: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(128),
+      Validators.pattern("([A-Z][a-zA-Z]*)")]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+    ]),
+    phone: new FormControl("",
+      [
+        Validators.required,
+        Validators.pattern("((\\+38)?\\(?\\d{3}\\)?[\\s\\.-]?(\\d{7}|\\d{3}[\\s\\.-]\\d{2}[\\s\\.-]\\d{2}|\\d{3}-\\d{4}))"),
+        Validators.minLength(13),
+        Validators.maxLength(13)])
+  });
+
+  onSubmit(): void {
+    this.userService.save(this.form.value).subscribe(result => this.gotoUserList());
+    this.gotoUserList();
+    this.modalService.dismissAll();
   }
 }
 
